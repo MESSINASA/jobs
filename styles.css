@@ -1,0 +1,726 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary-color: #2196F3;       /* 主题蓝色 */
+    --primary-dark: #1976D2;        /* 深蓝色 */
+    --primary-light: #BBDEFB;       /* 浅蓝色 */
+    --primary-bg: #E3F2FD;          /* 最浅蓝色背景 */
+    --text-primary: #2c3e50;        /* 主要文字颜色 */
+    --text-secondary: #666;         /* 次要文字颜色 */
+    --gradient-1: #08AEEA;          /* 新渐变色1 */
+    --gradient-2: #2AF598;          /* 新渐变色2 */
+    --gradient-3: #ffffff;          /* 新渐变色3 */
+}
+
+#particles-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(45deg, #E3F2FD, #BBDEFB, #90CAF9);
+}
+
+body {
+    font-family: 'Microsoft YaHei', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 20px;
+    margin: 0;
+    position: relative;
+    overflow-x: hidden;
+    background: transparent;
+}
+
+body::before,
+body::after {
+    display: none;
+}
+
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+    font-size: 2.2rem;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+h1:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, #2196F3, #1976D2);
+    border-radius: 2px;
+}
+
+.question {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+}
+
+.question h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.options label {
+    display: block;
+    padding: 1rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.options label:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.options input[type="radio"] {
+    margin-right: 12px;
+    transform: scale(1.2);
+}
+
+.options input[type="radio"]:checked + span {
+    color: #2196F3;
+    font-weight: 500;
+}
+
+button {
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+}
+
+#controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding: 0 1rem;
+}
+
+#progress-bar {
+    width: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #2196F3, #1976D2);
+    margin-bottom: 2rem;
+    border-radius: 3px;
+    transition: width 0.4s ease;
+}
+
+/* 结果页面样式 */
+.result-summary {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 15px;
+    margin: 2rem 0;
+}
+
+.type-scores {
+    display: none;
+}
+
+.interpretation, .career-suggestions {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.interpretation h3, .career-suggestions h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-left: 15px;
+}
+
+.interpretation h3:before, .career-suggestions h3:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 20px;
+    background: #2196F3;
+    border-radius: 2px;
+}
+
+.career-suggestions ul {
+    list-style: none;
+    padding: 0;
+}
+
+.career-suggestions li {
+    margin: 1.5rem 0;
+    padding: 1.2rem;
+    background: #E3F2FD;
+    border-radius: 10px;
+    color: #2c3e50;
+    transition: transform 0.3s ease;
+}
+
+.career-suggestions li p {
+    margin-top: 0.5rem;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.career-suggestions li:first-child {
+    font-weight: 500;
+    color: #1976D2;
+}
+
+.career-suggestions li ul {
+    margin-top: 0.5rem;
+    padding-left: 1.5rem;
+}
+
+.career-suggestions li ul li {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background: none;
+    border-left: 2px solid #2196F3;
+}
+
+.career-suggestions li:hover {
+    transform: translateX(5px);
+    background: #BBDEFB;
+}
+
+/* 欢迎页面样式 */
+.welcome-content {
+    text-align: center;
+    padding: 2rem;
+}
+
+.type-intro {
+    text-align: left;
+    margin: 2.5rem auto;
+    max-width: 600px;
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 15px;
+}
+
+.type-intro h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.type-intro ul {
+    list-style: none;
+    padding: 0;
+}
+
+.type-intro li {
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    border-left: 3px solid #2196F3;
+}
+
+.type-intro li:hover {
+    transform: translateX(5px);
+}
+
+.type-intro strong {
+    color: #2196F3;
+    margin-right: 8px;
+}
+
+.start-btn {
+    font-size: 1.2rem;
+    padding: 1rem 3rem;
+    margin-top: 2rem;
+    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+}
+
+.welcome-content p {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 1rem 0;
+    max-width: 600px;
+    margin: 1rem auto;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        margin: 1rem auto;
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .options label {
+        padding: 0.8rem 1rem;
+    }
+
+    .type-intro {
+        padding: 1.5rem;
+    }
+}
+
+/* 添加图表容器样式 */
+.chart-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* 移除之前的 personality-code 相关样式 */
+.personality-code {
+    display: none;
+}
+
+/* 添加动态背景 */
+@keyframes gradientBG {
+    0%, 100% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+}
+
+/* 添加浮动动画 */
+@keyframes wave {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-10px) rotate(5deg);
+    }
+    75% {
+        transform: translateY(10px) rotate(-5deg);
+    }
+}
+
+/* 管理员面板样式 */
+.admin-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1000px;
+    max-height: 80vh;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(33, 150, 243, 0.2);
+}
+
+.admin-header h2 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.results-summary {
+    margin-bottom: 1.5rem;
+    color: #666;
+}
+
+.results-table {
+    overflow-x: auto;
+}
+
+.results-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.results-table th,
+.results-table td {
+    padding: 0.8rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.results-table th {
+    background: rgba(33, 150, 243, 0.1);
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.results-table tr:hover {
+    background: rgba(33, 150, 243, 0.05);
+}
+
+.admin-panel button {
+    padding: 0.5rem 1rem;
+    margin-left: 1rem;
+}
+
+.admin-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.close-btn {
+    background: #dc3545;
+    color: white;
+}
+
+.close-btn:hover {
+    background: #c82333;
+}
+
+/* 修改之前的样式 */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(33, 150, 243, 0.2);
+}
+
+.admin-panel button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.average-chart-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* 调整管理员面板的布局 */
+.admin-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.results-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.results-summary p {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.basic-stats {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.stat-item {
+    flex: 1;
+    text-align: center;
+}
+
+.stat-item h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.stat-item p {
+    font-size: 2rem;
+    color: #2196F3;
+    font-weight: bold;
+}
+
+.type-distribution {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    text-align: left;
+}
+
+.type-distribution p {
+    font-size: 1rem;
+    color: #2c3e50;
+    padding: 0.5rem;
+    background: rgba(33, 150, 243, 0.1);
+    border-radius: 5px;
+    margin: 0;
+}
+
+/* 个人测试记录样式 */
+.individual-results {
+    margin-top: 2rem;
+}
+
+.individual-results h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    padding-left: 15px;
+    border-left: 4px solid #2196F3;
+}
+
+.result-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    display: flex;
+    gap: 2rem;
+}
+
+.result-info {
+    flex: 1;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.result-header h4 {
+    color: #2c3e50;
+    margin: 0;
+}
+
+.result-date {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.result-details {
+    margin-top: 1rem;
+}
+
+.result-details p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+
+.score-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.score-details span {
+    background: rgba(33, 150, 243, 0.1);
+    padding: 0.5rem;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.individual-chart-container {
+    width: 300px;
+    height: 300px;
+    padding: 1rem;
+    background: white;
+    border-radius: 10px;
+}
+
+/* 调整管理员面板的滚动 */
+.admin-panel {
+    max-height: 90vh;
+    overflow-y: auto;
+    padding-right: 1rem;
+}
+
+/* 美化滚动条 */
+.admin-panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.admin-panel::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.admin-panel::-webkit-scrollbar-thumb {
+    background: rgba(33, 150, 243, 0.5);
+    border-radius: 4px;
+}
+
+.admin-panel::-webkit-scrollbar-thumb:hover {
+    background: rgba(33, 150, 243, 0.7);
+}
+
+.result-code {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: rgba(33, 150, 243, 0.05);
+    border-radius: 15px;
+}
+
+.result-code h3 {
+    color: #2196F3;
+    margin-bottom: 1rem;
+}
+
+.code-explanation {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.type-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.type-rank {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2196F3;
+    color: white;
+    border-radius: 50%;
+    font-size: 0.9rem;
+}
+
+.type-name {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.type-score {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.interpretation p {
+    line-height: 1.8;
+    color: #2c3e50;
+    margin-top: 1rem;
+}
+
+.career-suggestions {
+    margin-top: 2rem;
+}
+
+.career-suggestions ul {
+    margin-top: 1rem;
+}
+
+.career-suggestions li {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.career-suggestions li p {
+    margin-top: 0.5rem;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+} 

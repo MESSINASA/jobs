@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>霍兰德职业兴趣测试</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body>
+    <div id="particles-bg"></div>
+    <div class="container">
+        <h1>霍兰德职业兴趣测试</h1>
+        
+        <!-- 欢迎页面 -->
+        <div id="welcome-container">
+            <div class="welcome-content">
+                <h2>测试说明</h2>
+                <p>霍兰德职业兴趣测试可以帮助您了解自己的职业倾向，共有18道题目。</p>
+                <div class="type-intro">
+                    <h3>六种类型说明：</h3>
+                    <ul>
+                        <li><strong>现实型(R)</strong>：喜欢动手操作、制作物品</li>
+                        <li><strong>研究型(I)</strong>：喜欢思考、分析问题</li>
+                        <li><strong>艺术型(A)</strong>：具有创造力和艺术天赋</li>
+                        <li><strong>社会型(S)</strong>：喜欢与人交往、帮助他人</li>
+                        <li><strong>企业型(E)</strong>：具有领导能力、善于管理</li>
+                        <li><strong>常规型(C)</strong>：做事细心、喜欢按规则办事</li>
+                    </ul>
+                </div>
+                <button onclick="startTest()" class="start-btn">开始测试</button>
+            </div>
+        </div>
+
+        <!-- 测试页面 -->
+        <div id="test-container" style="display: none;">
+            <div id="progress-bar"></div>
+            <div id="question-container">
+                <!-- 问题将通过JavaScript动态加载 -->
+            </div>
+            <div id="controls">
+                <button id="prev-btn" style="display: none;">上一题</button>
+            </div>
+        </div>
+
+        <!-- 结果页面 -->
+        <div id="result-container" style="display: none;">
+            <!-- 结果将通过JavaScript动态加载 -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-bg', {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#1976D2"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.4,
+                        "random": false,
+                        "anim": {
+                            "enable": true,
+                            "speed": 1,
+                            "opacity_min": 0.2,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 2,
+                            "size_min": 0.3,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#1976D2",
+                        "opacity": 0.3,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 3,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "bounce",
+                        "bounce": true,
+                        "attract": {
+                            "enable": true,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "repulse"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 200,
+                            "line_linked": {
+                                "opacity": 0.7
+                            }
+                        },
+                        "bubble": {
+                            "distance": 200,
+                            "size": 6,
+                            "duration": 0.3,
+                            "opacity": 0.8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 100,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+        });
+    </script>
+</body>
+</html> 
